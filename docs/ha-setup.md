@@ -81,7 +81,7 @@ $ sudo redis-di status   --rdi-password 'REDACTED'
 
 check the collector source log file on both node. the one with most recent timestamp of debezium is active
 
-```json
+```
 # tail -f /opt/rdi/logs/rdi_collector-collector-source.log
 2024-10-06 09:01:15  INFO com.github.shyiko.mysql.binlog.BinaryLogClient Keepalive: Trying to restore lost connection to 10.56.8.231:3306 
 2024-10-06 09:01:15  INFO io.debezium.connector.mysql.MySqlStreamingChangeEventSource Stopped reading binlog after 0 events, last recorded offset: {file=mysql-bin.000010, pos=6924, server_id=1, event=1} 
