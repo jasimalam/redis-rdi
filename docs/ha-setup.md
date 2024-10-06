@@ -77,4 +77,17 @@ $ sudo redis-di status   --rdi-password 'REDACTED'
 | 61968001002 | 10.56.8.124:38128 | redis-di-cli            | 0         | 0          | default |
 
 
+### Which node is currently active ?
+
+check the collector source log file on both node. the one with most recent timestamp of debezium is active
+
+```json
+# tail -f /opt/rdi/logs/rdi_collector-collector-source.log
+2024-10-06 09:01:15  INFO com.github.shyiko.mysql.binlog.BinaryLogClient Keepalive: Trying to restore lost connection to 10.56.8.231:3306 
+2024-10-06 09:01:15  INFO io.debezium.connector.mysql.MySqlStreamingChangeEventSource Stopped reading binlog after 0 events, last recorded offset: {file=mysql-bin.000010, pos=6924, server_id=1, event=1} 
+2024-10-06 09:01:15  INFO io.debezium.util.Threads Creating thread debezium-mysqlconnector-rdi-binlog-client 
+2024-10-06 09:01:15  INFO com.github.shyiko.mysql.binlog.BinaryLogClient Connected to 10.56.8.231:3306 at mysql-bin.000010/6924 (sid:1, cid:2628) 
+2024-10-06 09:01:15  INFO io.debezium.connector.mysql.MySqlStreamingChangeEventSource Connected to binlog at 10.56.8.231:3306, starting at MySqlOffsetContext [sourceInfoSchema=Schema{io.debezium.connector.mysql.Source:STRUCT}, sourceInfo=SourceInfo [currentGtid=null, currentBinlogFilename=mysql-bin.000010, currentBinlogPosition=6885, currentRowNumber=0, serverId=1, sourceTime=null, threadId=-1, currentQuery=null, tableIds=[], databaseName=null], snapshotCompleted=false, transactionContext=TransactionContext [currentTransactionId=null, perTableEventCount={}, totalEventCount=0], restartGtidSet=null, currentGtidSet=null, restartBinlogFilename=mysql-bin.000010, restartBinlogPosition=6924, restartRowsToSkip=0, restartEventsToSkip=1, currentEventLengthInBytes=39, inTransaction=false, transactionId=null, incrementalSnapshotContext =IncrementalSnapshotContext [windowOpened=false, chunkEndPosition=null, dataCollectionsToSnapshot=[], lastEventKeySent=null, maximumKey=null]] 
+2024-10-06 09:16:37  INFO io.debezium.connector.common.BaseSourceTask 39 records sent during previous 03:19:01.225, last recorded offset of {server=rdi} partition is {ts_sec=1728184597, file=mysql-bin.000010, pos=23006, row=1, server_id=1} 
+```
 
